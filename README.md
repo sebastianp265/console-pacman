@@ -13,7 +13,7 @@ Project is made for educational purposes only. It is written as simple as possib
   - [X] ścian
   - [ ] monet
   - [ ] pustych przestrzeni
-- [ ] wyświeltanie gracza i obsługa mechanik takich jak:
+- [ ] wyświetlanie gracza i obsługa mechanik takich jak:
   - [ ] poruszanie
   - [ ] detekcja kolizji ze ścianą
   - [ ] zbieranie monet
