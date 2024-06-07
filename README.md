@@ -1,5 +1,8 @@
 # ConsolePacman
 
+## ENG Disclaimer
+Project is made for educational purposes only. It is written as simple as possible - it doesn't follow every C++ good practice.
+
 ## Uruchomienie projektu
 1. Pobierz kod np. jako paczkę (zielony przycisk "<> Code", później "Download ZIP")
 2. Wciśnij podwójnie plik "ConsolePacman.sln" lewym przyciskiem myszy (jeżeli została ściągnięta paczka to należy najpierw ją rozpakować)
