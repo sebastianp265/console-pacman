@@ -1,7 +1,7 @@
 # ConsolePacman
 
 ## Uruchomienie projektu
-1. Pobierz kod np. jako paczkę
+1. Pobierz kod np. jako paczkę (zielony przycisk "<> Code", później "Download ZIP")
 2. Wciśnij podwójnie plik "ConsolePacman.sln" lewym przyciskiem myszy (jeżeli została ściągnięta paczka to należy najpierw ją rozpakować)
 3. Powinno uruchomić sie Visual Studio z gotowym do uruchomienia projektem :)
 
