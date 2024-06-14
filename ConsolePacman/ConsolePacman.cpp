@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <Windows.h>
 #include <conio.h>
 
 using namespace std;
@@ -51,13 +52,31 @@ int map[MAP_HEIGHT][MAP_WIDTH] = {
 #define BG_WHITE "\033[47m"
 #define BG_CLEAR "\033[0m"
 
+void set_cursor_to_left_top_corner() {
+	COORD cursorPosition;
+	cursorPosition.X = 0;
+	cursorPosition.Y = 0;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursorPosition);
+}
+
+int player_pos_x;
+int player_pos_y;
+
+int player_velocity_x = 0;
+int player_velocity_y = 0;
+
 void print_map() {
+	set_cursor_to_left_top_corner();
+
     for (int y = 0; y < MAP_HEIGHT; y++) {
         for (int x = 0; x < MAP_WIDTH; x++) {
-            if (map[y][x] == 0) {
+			if (player_pos_y == y && player_pos_x == x) {
+				cout << BG_YELLOW << "  ";
+			}
+            else if (map[y][x] == EMPTY) {
                 cout << BG_CLEAR << "  ";
             }
-            else if (map[y][x] == 1) {
+            else if (map[y][x] == WALL) {
                 cout << BG_BLUE << "  ";
 			}
 			else {
@@ -71,9 +90,6 @@ void print_map() {
     cout << BG_CLEAR;
 }
 
-int player_pos_x;
-int player_pos_y;
-
 void init_player_position() {
 	int player_count = 0;
 
@@ -83,6 +99,7 @@ void init_player_position() {
 				player_count++;
 				player_pos_y = y;
 				player_pos_x = x;
+				map[y][x] = EMPTY;
 			}
 		}
 	}
@@ -97,17 +114,52 @@ void handle_key_input() {
 	if (_kbhit()) {
 		char key_pressed = _getch();
 
+		if (key_pressed == 'w') {
+			player_velocity_y = -1;
+			player_velocity_x = 0;
+		}
+		else if (key_pressed == 's') {
+			player_velocity_y = 1;
+			player_velocity_x = 0;
+		}
+		else if (key_pressed == 'a') {
+			player_velocity_x = -1;
+			player_velocity_y = 0;
+		}
+		else if (key_pressed == 'd') {
+			player_velocity_x = 1;
+			player_velocity_y = 0;
+		}
+		else if (key_pressed == ' ') {
+			exit(0);
+		}
+
 		cout << "Pressed key: " << key_pressed;
 	}
 }
 
+void hide_cursor() {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(hConsole, &cursorInfo);
+	cursorInfo.bVisible = false;
+	SetConsoleCursorInfo(hConsole, &cursorInfo);
+}
+
+void update_game() {
+	player_pos_x += player_velocity_x;
+	player_pos_y += player_velocity_y;
+}
+
 int main()
 {
+	hide_cursor();
 	init_player_position();
 	
-	print_map();
-
 	while (true) {
 		handle_key_input();
+		update_game();
+		print_map();
+		Sleep(100);
 	}
 }
